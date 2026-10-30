@@ -1,0 +1,188 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const releases = [
+  { title: "Lançamento parceiro 01", kind: "Catálogo / parceria" },
+  { title: "Lançamento parceiro 02", kind: "Catálogo / parceria" },
+  { title: "Lançamento parceiro 03", kind: "Catálogo / parceria" },
+];
+
+const artists = ["Artista 01", "Artista 02", "Artista 03"];
+
+const updates = [
+  { label: "EM BREVE", text: "Novos lançamentos e notícias aparecerão neste espaço." },
+  { label: "FALLS", text: "Acompanhe os projetos da gravadora e seus artistas." },
+];
+---
+
+<BaseLayout
+  title="Falls Records — Música independente"
+  description="Conheça a Falls Records, seus artistas, lançamentos e projetos de música independente."
+>
+  <div class="site-shell" id="inicio">
+    <div class="topbar">
+      <p class="topbar-signature">FALLS RECORDS <span>•</span> MÚSICA INDEPENDENTE <span>•</span> BRASIL</p>
+      <div class="topbar-right">
+        <span class="welcome-label">BEM-VINDO À FALLS</span>
+        <div class="social-links" aria-label="Canais oficiais em preparação">
+          <span aria-hidden="true">IG</span>
+          <span aria-hidden="true">SP</span>
+          <span aria-hidden="true">YT</span>
+          <span aria-hidden="true">✉</span>
+        </div>
+      </div>
+    </div>
+
+    <header class="masthead">
+      <a class="brand" href="#inicio" aria-label="Falls Records, início">
+        <span class="brand-name">FALLS</span>
+        <span class="brand-records">RECORDS</span>
+        <span class="brand-tagline">MÚSICA INDEPENDENTE <span>/</span> FALLS RECORDS</span>
+      </a>
+
+      <div class="masthead-note" aria-label="Suporte à música independente">
+        <span>SUPORTE À</span>
+        <span>MÚSICA INDEPENDENTE</span>
+        <i aria-hidden="true"></i>
+        <small>ARTISTAS <b>•</b> LANÇAMENTOS <b>•</b> RÁDIO</small>
+      </div>
+
+      <div class="masthead-waterfall" aria-hidden="true"></div>
+
+      <form class="mailing-list" data-mailing-form>
+        <label class="mailing-title" for="mailing-email">LISTA DE NOVIDADES</label>
+        <div class="mailing-controls">
+          <input id="mailing-email" name="email" type="email" autocomplete="email" placeholder="seu e-mail" required />
+          <button type="submit">ENTRAR</button>
+        </div>
+        <p class="mailing-note" data-mailing-note aria-live="polite">Novidades da Falls, sem excesso.</p>
+      </form>
+    </header>
+
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a class="is-active" href="#inicio" aria-current="page">Início</a>
+      <a href="#artistas">Artistas</a>
+      <a href="#lancamentos">Lançamentos</a>
+      <a href="#radio">Rádio</a>
+      <a href="#novidades">Novidades</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+      <span class="nav-signature">FALLS RECORDS / SOM EM MOVIMENTO</span>
+    </nav>
+
+    <main id="conteudo" class="content-grid">
+      <section class="feature-panel panel" aria-labelledby="feature-title">
+        <div class="feature-copy">
+          <p class="eyebrow">LANÇAMENTO EM DESTAQUE <span>/</span> CATÁLOGO FALLS</p>
+          <h1 id="feature-title">SOM EM<br />MOVIMENTO.</h1>
+          <p class="feature-description">Artistas e lançamentos independentes<br class="desktop-break" /> com identidade própria.</p>
+          <div class="feature-actions">
+            <a class="button button-primary" href="#lancamentos">EXPLORAR LANÇAMENTOS <span aria-hidden="true">↗</span></a>
+            <a class="button button-secondary" href="#artistas">VER ARTISTAS</a>
+          </div>
+          <span class="recording-mark"><i></i> REC</span>
+        </div>
+
+        <div class="cover-card" role="img" aria-label="Arte provisória de lançamento da Falls Records">
+          <div class="cover-art" aria-hidden="true">
+            <span class="cover-code">FR / ARTE EM DEFINIÇÃO</span>
+            <span class="cover-disc"></span>
+            <span class="cover-river cover-river-one"></span>
+            <span class="cover-river cover-river-two"></span>
+            <span class="cover-wordmark">FALLS</span>
+            <span class="cover-records">RECORDS <b>•</b> MÚSICA INDEPENDENTE</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="radio-panel panel" id="radio" aria-labelledby="radio-title">
+        <div class="panel-heading radio-heading">
+          <h2 id="radio-title">RÁDIO FALLS</h2>
+          <span class="status-badge">EM BREVE</span>
+        </div>
+        <div class="radio-visual" aria-hidden="true">
+          <span class="radio-ring radio-ring-outer"></span>
+          <span class="radio-ring radio-ring-middle"></span>
+          <span class="radio-ring radio-ring-inner"></span>
+          <span class="radio-monogram">FR</span>
+          <i class="radio-dot"></i>
+        </div>
+        <p class="radio-selection">SELEÇÃO DE ARTISTAS PARCEIROS</p>
+        <p class="radio-note">Formato da programação em definição</p>
+        <button class="radio-button" type="button" disabled>
+          <span aria-hidden="true">▶</span> OUVIR QUANDO DISPONÍVEL
+        </button>
+      </aside>
+
+      <section class="releases-panel panel" id="lancamentos" aria-labelledby="releases-title">
+        <div class="panel-heading">
+          <h2 id="releases-title">ÚLTIMOS LANÇAMENTOS</h2>
+          <span class="panel-link">VER TODOS <b aria-hidden="true">›</b></span>
+        </div>
+        <div class="release-list">
+          {releases.map((release, index) => (
+            <article class="release-row">
+              <div class={`release-art release-art-${index + 1}`} aria-hidden="true"><span>FR</span></div>
+              <div class="release-info">
+                <h3>{release.title}</h3>
+                <p>{release.kind}</p>
+              </div>
+              <span class="release-arrow" aria-hidden="true">›</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="artists-panel panel" id="artistas" aria-labelledby="artists-title">
+        <div class="panel-heading">
+          <h2 id="artists-title">ARTISTAS</h2>
+          <span class="panel-link">PROJETOS DA FALLS RECORDS <b aria-hidden="true">›</b></span>
+        </div>
+        <div class="artist-grid">
+          {artists.map((artist, index) => (
+            <article class={`artist-card artist-card-${index + 1}`}>
+              <div class="artist-art" aria-hidden="true">
+                <span class="artist-monogram">FR</span>
+                <span class="artist-orbit"></span>
+                <span class="artist-stripe"></span>
+              </div>
+              <h3>{artist}</h3>
+              <p>PERFIL DO ARTISTA</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="news-panel panel" id="novidades" aria-labelledby="news-title">
+        <div class="panel-heading">
+          <h2 id="news-title">NOVIDADES &amp; ATUALIZAÇÕES</h2>
+          <span class="panel-link">VER TODAS <b aria-hidden="true">›</b></span>
+        </div>
+        <div class="news-list">
+          {updates.map((update) => (
+            <article class="news-item">
+              <span class="news-label">{update.label}</span>
+              <p>{update.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="footer-brand">
+        <span>FALLS RECORDS</span>
+        <small>CANAIS OFICIAIS EM BREVE</small>
+      </div>
+      <div class="footer-links">ARTISTAS <span>•</span> LANÇAMENTOS <span>•</span> RÁDIO</div>
+      <div class="footer-site">
+        <span>SITE OFICIAL / FALLS RECORDS</span>
+        <small>© <span data-current-year>2026</span> FALLS RECORDS</small>
+      </div>
+      <p class="footer-tagline" id="sobre">FEITO PARA OUVIR COM ATENÇÃO.</p>
+    </footer>
+
+    <div class="bottom-signature" aria-hidden="true">★ <span>FALLS RECORDS — MÚSICA INDEPENDENTE</span> ★</div>
+  </div>
+</BaseLayout>

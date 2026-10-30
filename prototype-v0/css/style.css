@@ -1,0 +1,332 @@
+:root {
+  color-scheme: dark;
+  /* Cores oficiais do manual provisório Falls Records. */
+  --navy: #051a34;
+  --blue: #5289bc;
+  --red: #c90204;
+  --white: #ffffff;
+  --ink: var(--white);
+  --muted: #b8c9dc;
+  --surface: #0b2442;
+  --line: rgb(82 137 188 / 42%);
+  /* Aller e Chunk Five seguem o manual; os fallbacks mantêm a página legível
+     até que os arquivos licenciados das fontes sejam adicionados ao projeto. */
+  --font-body: "Aller", "Avenir Next", "Segoe UI", sans-serif;
+  --font-title: "Chunk Five", "Rockwell Extra Bold", Rockwell, Georgia, serif;
+  --font-label: "Impact Label", "DM Mono", Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--navy);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.75rem 1rem;
+  transform: translateY(-160%);
+  background: var(--white);
+  color: var(--navy);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.site-header,
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.5rem 7vw;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand-name {
+  color: var(--white);
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  line-height: 0.85;
+  letter-spacing: 0.015em;
+}
+
+.brand-name span {
+  color: var(--blue);
+  font-size: 0.82em;
+  letter-spacing: 0.12em;
+}
+
+.main-nav {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.main-nav a:hover,
+.footer-link:hover {
+  color: var(--white);
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  min-height: min(76vh, 760px);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 7rem 12vw;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 87% 73%, rgb(82 137 188 / 17%), transparent 36%),
+    linear-gradient(115deg, transparent 68%, rgb(82 137 188 / 7%) 68.2%, transparent 68.6%);
+}
+
+.eyebrow {
+  margin: 0 0 1.25rem;
+  color: var(--blue);
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 0.48rem;
+  height: 0.48rem;
+  margin-right: 0.45rem;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 0 3px rgb(201 2 4 / 18%);
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 980px;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-title);
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+h1 em {
+  color: var(--blue);
+  font-style: normal;
+}
+
+.hero-copy,
+.about-copy {
+  max-width: 36rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.8;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--red);
+  background: var(--red);
+  color: var(--white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.button:hover {
+  background: transparent;
+  color: var(--white);
+}
+
+.hero-index {
+  position: absolute;
+  right: 7vw;
+  bottom: 2.5rem;
+  color: var(--blue);
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+}
+
+.section-wrap {
+  padding: 6rem 12vw;
+}
+
+.releases {
+  border-top: 1px solid var(--line);
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.section-heading h2,
+.about h2 {
+  margin-bottom: 0;
+  font-family: var(--font-title);
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  letter-spacing: -0.04em;
+}
+
+.section-note {
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.release-placeholder {
+  display: flex;
+  min-height: 170px;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.release-number,
+.release-arrow {
+  color: var(--red);
+  font-family: var(--font-label);
+}
+
+.release-placeholder p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.release-arrow {
+  margin-left: auto;
+}
+
+.about {
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.about h2 {
+  margin-bottom: 1.5rem;
+}
+
+.site-footer {
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.footer-link {
+  color: var(--white);
+}
+
+.copyright {
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .site-header,
+  .site-footer {
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+  }
+
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .main-nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .hero {
+    min-height: 70vh;
+    padding: 5rem 1.5rem;
+  }
+
+  .section-wrap {
+    padding: 4.5rem 1.5rem;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .release-placeholder {
+    min-height: 140px;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
