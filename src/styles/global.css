@@ -889,13 +889,6 @@ a {
   gap: 0.8rem;
 }
 
-.artist-profile-featured {
-  grid-template-columns: minmax(120px, 0.8fr) minmax(0, 1.2fr);
-  padding: 0.65rem;
-  border: 1px solid var(--blue);
-  background: linear-gradient(120deg, rgb(82 137 188 / 13%), var(--panel));
-}
-
 .artist-profile-art {
   display: grid;
   min-width: 0;
@@ -913,40 +906,8 @@ a {
   font-weight: 900;
 }
 
-.artist-profile-featured .artist-profile-art {
-  min-height: 190px;
-  border-color: var(--blue);
-  background:
-    radial-gradient(circle at 70% 30%, rgb(125 183 234 / 48%) 0 18%, transparent 19%),
-    linear-gradient(140deg, #1a3b5d, #071322 78%);
-}
-
 .artist-profile-copy {
   min-width: 0;
-}
-
-.artist-featured-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem 0.55rem;
-  margin-bottom: 0.45rem;
-  color: var(--blue-light);
-  font-family: var(--font-label);
-  font-size: 0.52rem;
-}
-
-.artist-featured-badge {
-  padding: 0.2rem 0.35rem;
-  border: 1px solid var(--blue);
-  color: var(--white);
-  letter-spacing: 0.04em;
-}
-
-.artist-featured-meta small {
-  flex-basis: 100%;
-  color: var(--muted);
-  font-size: 0.48rem;
 }
 
 .artist-profile-copy h3 {
@@ -1426,10 +1387,6 @@ a {
   .artist-art {
     min-height: 82px;
     grid-row: span 2;
-  }
-
-  .artist-profile-featured .artist-profile-art {
-    min-height: 120px;
   }
 
   .artist-card h3 {

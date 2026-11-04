@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const releases = [
   {
     title: "Soft Sparks",
+    popularityRank: 3,
     year: "2025",
     kind: "Single",
     spotify: "https://open.spotify.com/album/72mRlOMgCryE3xO1BoCMDu",
@@ -41,6 +42,7 @@ const releases = [
   },
   {
     title: "Say Goodbye Again",
+    popularityRank: 2,
     year: "2025",
     kind: "Single",
     artist: "Rebecca Silveiras",
@@ -77,6 +79,7 @@ const releases = [
   },
   {
     title: "You should care less",
+    popularityRank: 1,
     year: "",
     kind: "Single",
     artist: "Rise Rise, Forks",
@@ -92,13 +95,17 @@ const releases = [
   },
 ];
 
+const releasesForDisplay = [...releases].sort(
+  (releaseA, releaseB) =>
+    (releaseA.popularityRank ?? Number.POSITIVE_INFINITY) -
+    (releaseB.popularityRank ?? Number.POSITIVE_INFINITY),
+);
+
 const artists = [
   {
     name: "Rise Rise, Forks",
     bio: "Banda independente da Falls Records. Este espaço reúne seus canais oficiais e músicas; a apresentação será atualizada com a descrição aprovada pela banda.",
-    featured: true,
-    audience: "1 mil+ seguidores no Instagram",
-    audienceChecked: "Consulta em 4 nov. 2026",
+    displayOrder: 1,
     links: [
       { label: "Linktree oficial", href: "https://linktr.ee/RiseForksBand" },
       { label: "Instagram", href: "https://www.instagram.com/riseforksband/" },
@@ -107,17 +114,9 @@ const artists = [
     ],
   },
   {
-    name: "Duaveira",
-    bio: "Duaveira é um projeto musical independente ligado à Falls Records. Este espaço reúne seus lançamentos e canais oficiais; a apresentação será atualizada com a visão do artista.",
-    links: [
-      { label: "Spotify", href: "https://open.spotify.com/artist/2N7H6GiXTxRKq7uTXrzQvO" },
-      { label: "Instagram", href: "https://www.instagram.com/duavessu/" },
-      { label: "YouTube — Soft Sparks", href: "https://www.youtube.com/watch?v=fCwj8bCMbmg" },
-    ],
-  },
-  {
     name: "Rebecca Silveiras",
     bio: "Rebecca Silveiras é cantora e compositora da Falls Records. Conheça seus lançamentos e acompanhe seus canais oficiais.",
+    displayOrder: 2,
     links: [
       { label: "Spotify", href: "https://open.spotify.com/artist/2L7ARWW5u2UJArBYJNAt3Z" },
       { label: "Instagram", href: "https://www.instagram.com/wowbk/" },
@@ -125,7 +124,21 @@ const artists = [
       { label: "YouTube — Hurt Only", href: "https://www.youtube.com/watch?v=HFKa7-pvGgg" },
     ],
   },
+  {
+    name: "Duaveira",
+    bio: "Duaveira é um projeto musical independente ligado à Falls Records. Este espaço reúne seus lançamentos e canais oficiais; a apresentação será atualizada com a visão do artista.",
+    displayOrder: 3,
+    links: [
+      { label: "Spotify", href: "https://open.spotify.com/artist/2N7H6GiXTxRKq7uTXrzQvO" },
+      { label: "Instagram", href: "https://www.instagram.com/duavessu/" },
+      { label: "YouTube — Soft Sparks", href: "https://www.youtube.com/watch?v=fCwj8bCMbmg" },
+    ],
+  },
 ];
+
+const artistsByDisplayOrder = [...artists].sort(
+  (artistA, artistB) => artistA.displayOrder - artistB.displayOrder,
+);
 
 const updates = [
   { label: "EM BREVE", text: "Estamos reunindo novidades e informações oficiais dos projetos da gravadora." },
@@ -232,8 +245,8 @@ const updates = [
           <span class="panel-status">CATÁLOGO SPOTIFY</span>
         </div>
         <div class="release-list">
-          {releases.map((release) => (
-            <article class="release-row">
+          {releasesForDisplay.map((release) => (
+            <article class="release-row" data-popularity-rank={release.popularityRank}>
               <div
                 class="release-art"
                 role="img"
@@ -270,19 +283,12 @@ const updates = [
           <span class="panel-status">BIOGRAFIA RASCUNHO</span>
         </div>
         <div class="artist-profiles">
-          {artists.map((artist) => (
-            <article class:list={["artist-profile", { "artist-profile-featured": artist.featured }]}>
+          {artistsByDisplayOrder.map((artist) => (
+            <article class="artist-profile">
               <div class="artist-profile-art" role="img" aria-label={`Imagem de ${artist.name} a adicionar`}>
                 <span>{artist.name}</span>
               </div>
               <div class="artist-profile-copy">
-                {artist.featured && (
-                  <div class="artist-featured-meta">
-                    <span class="artist-featured-badge">EM DESTAQUE</span>
-                    <span>{artist.audience}</span>
-                    <small>{artist.audienceChecked} · Instagram</small>
-                  </div>
-                )}
                 <h3>{artist.name}</h3>
                 <p>{artist.bio}</p>
                 <nav class="artist-links" aria-label={`Canais oficiais de ${artist.name}`}>
@@ -329,3 +335,31 @@ const updates = [
     <div class="bottom-signature" aria-hidden="true">★ <span>FALLS RECORDS — MÚSICA INDEPENDENTE</span> ★</div>
   </div>
 </BaseLayout>
+
+<script>
+  const releaseList = document.querySelector(".release-list");
+
+  if (releaseList) {
+    const rows = Array.from(releaseList.querySelectorAll(".release-row"));
+    const featuredRows = rows
+      .filter((row) => row.hasAttribute("data-popularity-rank"))
+      .sort(
+        (rowA, rowB) =>
+          Number(rowA.getAttribute("data-popularity-rank")) -
+          Number(rowB.getAttribute("data-popularity-rank")),
+      );
+    const remainingRows = rows.filter(
+      (row) => !row.hasAttribute("data-popularity-rank"),
+    );
+
+    for (let index = remainingRows.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [remainingRows[index], remainingRows[randomIndex]] = [
+        remainingRows[randomIndex],
+        remainingRows[index],
+      ];
+    }
+
+    releaseList.append(...featuredRows, ...remainingRows);
+  }
+</script>
