@@ -145,6 +145,12 @@ a {
   align-items: flex-start;
 }
 
+.brand-logo {
+  display: block;
+  width: clamp(220px, 22vw, 330px);
+  height: auto;
+}
+
 .brand-name {
   color: var(--white);
   font-family: var(--font-title);
@@ -1133,6 +1139,52 @@ a {
   letter-spacing: 0.035em;
 }
 
+.artist-carousel {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: var(--black);
+}
+
+.artist-carousel-slide {
+  position: relative;
+  height: clamp(210px, 32vw, 470px);
+  margin: 0;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.artist-carousel-slide::after {
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent, rgb(2 9 18 / 82%));
+  content: "";
+  pointer-events: none;
+}
+
+.artist-carousel-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 43%;
+}
+
+.artist-carousel-slide figcaption {
+  position: absolute;
+  z-index: 1;
+  right: 2.45%;
+  bottom: 1rem;
+  color: var(--white);
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+}
+
+.artist-carousel-slide figcaption span {
+  color: var(--blue-light);
+}
+
 .bottom-signature {
   display: flex;
   min-height: 33px;
@@ -1219,6 +1271,10 @@ a {
     font-size: clamp(5.4rem, 22vw, 7rem);
   }
 
+  .brand-logo {
+    width: min(74vw, 300px);
+  }
+
   .brand-records {
     font-size: 1.25rem;
     letter-spacing: 0.3em;
@@ -1231,6 +1287,20 @@ a {
   .masthead-note,
   .masthead-waterfall {
     display: none;
+  }
+
+  .artist-carousel-slide {
+    height: clamp(190px, 58vw, 320px);
+  }
+
+  .artist-carousel-slide img {
+    object-position: center 38%;
+  }
+
+  .artist-carousel-slide figcaption {
+    right: 1rem;
+    bottom: 0.75rem;
+    font-size: 0.58rem;
   }
 
   .mailing-list {

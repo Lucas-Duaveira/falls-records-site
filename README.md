@@ -4,14 +4,21 @@ Site oficial da Falls Records para apresentar a gravadora, artistas e lançament
 
 ## Estado do projeto
 
+- Esta é a cópia de trabalho conectada ao GitHub (`main` / `origin`). Faça alterações nesta pasta; `github-upload-staging/` é uma cópia antiga e não publica o site.
 - A página inicial em construção está em `src/pages/index.astro`.
 - O layout compartilhado está em `src/layouts/BaseLayout.astro`.
-- `prototype-v0/` guarda a primeira versão estática como referência.
-- As mídias públicas ficam em `public/assets/`: imagens de artistas em `images/artists/`, capas em `images/releases/`, logos em `logos/` e áudio em `audio/`.
+- `prototype-v0/` guarda a primeira versão estática como referência; não é a versão ativa.
+- O conteúdo e os estilos estão em `src/`; os arquivos públicos ficam em `public/assets/`.
+- Mantenha os originais no Google Drive e, se necessário, temporariamente em `media-source/` (pasta local ignorada pelo Git e pelo site). Em `public/assets/`, coloque apenas cópias aprovadas, otimizadas e prontas para publicação; tudo nessa pasta é incluído no site público.
+- Pastas de mídia: `images/artists/`, `images/releases/`, `images/carousel/`, `logos/` e `audio/`. Use nomes descritivos, minúsculos e sem espaços (por exemplo, `rise-rise-forks-live.jpg`).
 - A página mantém apenas informações já identificadas; perfis e lançamentos serão completados com nomes, textos, imagens autorizadas e links oficiais fornecidos pela gravadora.
 - O catálogo começa simples, em arquivos do projeto; um CMS pode ser avaliado mais adiante.
 
-O manual de marca atual é provisório. O logo oficial e os arquivos tipográficos licenciados ainda precisam ser adicionados.
+O manual de marca atual é provisório. A logo otimizada está aplicada no cabeçalho; confirme se é a versão final da marca. Confirme também as licenças de uso das fontes.
+
+## Atenção aos arquivos de mídia atuais
+
+Os PNGs originais recebidos ficam em `media-source/` e não são enviados ao GitHub nem copiados para o site. A imagem otimizada atual está na faixa de artistas em `public/assets/images/carousel/`; a logo otimizada está em `public/assets/logos/`. Confirme autorização para publicar as imagens.
 
 ## Tecnologias
 

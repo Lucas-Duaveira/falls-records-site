@@ -6,6 +6,7 @@ coverage/
 .env
 .env.*
 !.env.example
+media-source/
 npm-debug.log*
 Thumbs.db
 .DS_Store

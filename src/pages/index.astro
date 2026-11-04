@@ -160,8 +160,13 @@ const updates = [
 
     <header class="masthead">
       <a class="brand" href="#inicio" aria-label="Falls Records, início">
-        <span class="brand-name">FALLS</span>
-        <span class="brand-records">RECORDS</span>
+        <img
+          class="brand-logo"
+          src={`${import.meta.env.BASE_URL}/assets/logos/falls-records-logo.png`}
+          alt=""
+          width="1800"
+          height="897"
+        />
         <span class="brand-tagline">MÚSICA INDEPENDENTE <span>/</span> FALLS RECORDS</span>
       </a>
 
@@ -183,6 +188,19 @@ const updates = [
         <p class="mailing-note">A lista será ativada quando o serviço de inscrição estiver conectado.</p>
       </form>
     </header>
+
+    <section class="artist-carousel" aria-label="Artistas da Falls Records ao vivo">
+      <figure class="artist-carousel-slide">
+        <img
+          src={`${import.meta.env.BASE_URL}/assets/images/carousel/rise-rise-forks-live.jpg`}
+          alt="Rise Rise, Forks se apresentando ao vivo"
+          width="2048"
+          height="1365"
+          fetchpriority="high"
+        />
+        <figcaption>RISE RISE, FORKS <span>•</span> AO VIVO</figcaption>
+      </figure>
+    </section>
 
     <nav class="main-nav" aria-label="Navegação principal">
       <a class="is-active" href="#inicio" aria-current="page">Início</a>
