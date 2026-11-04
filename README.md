@@ -7,7 +7,8 @@ Site oficial da Falls Records para apresentar a gravadora, artistas e lançament
 - A página inicial em construção está em `src/pages/index.astro`.
 - O layout compartilhado está em `src/layouts/BaseLayout.astro`.
 - `prototype-v0/` guarda a primeira versão estática como referência.
-- `public/assets/` é o local dos arquivos públicos de imagem, logo e áudio.
+- As mídias públicas ficam em `public/assets/`: imagens de artistas em `images/artists/`, capas em `images/releases/`, logos em `logos/` e áudio em `audio/`.
+- A página mantém apenas informações já identificadas; perfis e lançamentos serão completados com nomes, textos, imagens autorizadas e links oficiais fornecidos pela gravadora.
 - O catálogo começa simples, em arquivos do projeto; um CMS pode ser avaliado mais adiante.
 
 O manual de marca atual é provisório. O logo oficial e os arquivos tipográficos licenciados ainda precisam ser adicionados.

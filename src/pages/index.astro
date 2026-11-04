@@ -2,16 +2,130 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const releases = [
-  { title: "Lançamento parceiro 01", kind: "Catálogo / parceria" },
-  { title: "Lançamento parceiro 02", kind: "Catálogo / parceria" },
-  { title: "Lançamento parceiro 03", kind: "Catálogo / parceria" },
+  {
+    title: "Soft Sparks",
+    year: "2025",
+    kind: "Single",
+    spotify: "https://open.spotify.com/album/72mRlOMgCryE3xO1BoCMDu",
+    youtube: "https://www.youtube.com/watch?v=fCwj8bCMbmg",
+  },
+  {
+    title: "mY piZZA (lame version)",
+    year: "2025",
+    kind: "Single",
+    spotify: "https://open.spotify.com/album/7pIiz5EGyYp871KzUZpHv2",
+  },
+  {
+    title: "Birdcage (Cover)",
+    year: "2024",
+    kind: "Single",
+    spotify: "https://open.spotify.com/album/2P1exbrkr0QoeAqIcs6Hnh",
+  },
+  {
+    title: "Sorriso ao Sono (Cover)",
+    year: "2023",
+    kind: "Single",
+    spotify: "https://open.spotify.com/album/1xDprVm16tNVvoaqsui6aj",
+  },
+  {
+    title: "Arms (Cover)",
+    year: "2023",
+    kind: "Single",
+    spotify: "https://open.spotify.com/album/6bXIQVLXYH9b65L86cbgoq",
+  },
+  {
+    title: "Well...",
+    year: "2021",
+    kind: "Single",
+    spotify: "https://open.spotify.com/album/1ojj8YPFeB2TJjhGVZt6LP",
+  },
+  {
+    title: "Say Goodbye Again",
+    year: "2025",
+    kind: "Single",
+    artist: "Rebecca Silveiras",
+    spotify: "https://open.spotify.com/album/61UhKRBOc0dGScNURUdkJR",
+  },
+  {
+    title: "Haunt You (cover)",
+    year: "2024",
+    kind: "Single",
+    artist: "Rebecca Silveiras",
+    spotify: "https://open.spotify.com/album/09AJX44DwC6ffPW3CxtxZp",
+  },
+  {
+    title: "Lighthouse (Grampa House Version)",
+    year: "2023",
+    kind: "Single",
+    artist: "Rebecca Silveiras",
+    spotify: "https://open.spotify.com/album/41caG73VuxdLvhNDUSxUUp",
+  },
+  {
+    title: "Hurt Only",
+    year: "2021",
+    kind: "Single",
+    artist: "Rebecca Silveiras",
+    spotify: "https://open.spotify.com/album/13ri8gxJRPS5ItcsEu3kh5",
+    youtube: "https://www.youtube.com/watch?v=HFKa7-pvGgg",
+  },
+  {
+    title: "Daquela Música, Vol. 1",
+    year: "2020",
+    kind: "Single",
+    artist: "Rebecca Silveiras",
+    spotify: "https://open.spotify.com/album/6seAUmv7lL3Y9hAkiQY9Xk",
+  },
+  {
+    title: "You should care less",
+    year: "",
+    kind: "Single",
+    artist: "Rise Rise, Forks",
+    spotify: "https://open.spotify.com/track/2TypVYOYq4pCHGeDAgohEc",
+    youtube: "https://youtu.be/_dBPnNc7LNU",
+  },
+  {
+    title: "Just a Vapor",
+    year: "",
+    kind: "Faixa",
+    artist: "Rise Rise, Forks",
+    bandcamp: "https://riseriseforks.bandcamp.com/track/just-a-vapor",
+  },
 ];
 
-const artists = ["Artista 01", "Artista 02", "Artista 03"];
+const artists = [
+  {
+    name: "Duaveira",
+    bio: "Duaveira é um projeto musical independente ligado à Falls Records. Este espaço reúne seus lançamentos e canais oficiais; a apresentação será atualizada com a visão do artista.",
+    links: [
+      { label: "Spotify", href: "https://open.spotify.com/artist/2N7H6GiXTxRKq7uTXrzQvO" },
+      { label: "Instagram", href: "https://www.instagram.com/duavessu/" },
+      { label: "YouTube — Soft Sparks", href: "https://www.youtube.com/watch?v=fCwj8bCMbmg" },
+    ],
+  },
+  {
+    name: "Rebecca Silveiras",
+    bio: "Rebecca Silveiras é cantora e compositora da Falls Records. Conheça seus lançamentos e acompanhe seus canais oficiais.",
+    links: [
+      { label: "Spotify", href: "https://open.spotify.com/artist/2L7ARWW5u2UJArBYJNAt3Z" },
+      { label: "Instagram", href: "https://www.instagram.com/wowbk/" },
+      { label: "Facebook", href: "https://www.facebook.com/wowbecca" },
+      { label: "YouTube — Hurt Only", href: "https://www.youtube.com/watch?v=HFKa7-pvGgg" },
+    ],
+  },
+  {
+    name: "Rise Rise, Forks",
+    bio: "Banda independente da Falls Records. Este espaço reúne seus canais oficiais e músicas; a apresentação será atualizada com a descrição aprovada pela banda.",
+    links: [
+      { label: "Linktree oficial", href: "https://linktr.ee/RiseForksBand" },
+      { label: "Instagram", href: "https://www.instagram.com/riseforksband/" },
+      { label: "TikTok", href: "https://www.tiktok.com/@rise.rise.forks" },
+      { label: "Bandcamp", href: "https://riseriseforks.bandcamp.com/track/just-a-vapor" },
+    ],
+  },
+];
 
 const updates = [
-  { label: "EM BREVE", text: "Novos lançamentos e notícias aparecerão neste espaço." },
-  { label: "FALLS", text: "Acompanhe os projetos da gravadora e seus artistas." },
+  { label: "EM BREVE", text: "Estamos reunindo novidades e informações oficiais dos projetos da gravadora." },
 ];
 ---
 
@@ -24,12 +138,7 @@ const updates = [
       <p class="topbar-signature">FALLS RECORDS <span>•</span> MÚSICA INDEPENDENTE <span>•</span> BRASIL</p>
       <div class="topbar-right">
         <span class="welcome-label">BEM-VINDO À FALLS</span>
-        <div class="social-links" aria-label="Canais oficiais em preparação">
-          <span aria-hidden="true">IG</span>
-          <span aria-hidden="true">SP</span>
-          <span aria-hidden="true">YT</span>
-          <span aria-hidden="true">✉</span>
-        </div>
+        <span class="topbar-status">CANAIS OFICIAIS EM PREPARAÇÃO</span>
       </div>
     </div>
 
@@ -49,13 +158,13 @@ const updates = [
 
       <div class="masthead-waterfall" aria-hidden="true"></div>
 
-      <form class="mailing-list" data-mailing-form>
-        <label class="mailing-title" for="mailing-email">LISTA DE NOVIDADES</label>
+      <form class="mailing-list">
+        <label class="mailing-title" for="mailing-email">LISTA DE NOVIDADES / EM BREVE</label>
         <div class="mailing-controls">
-          <input id="mailing-email" name="email" type="email" autocomplete="email" placeholder="seu e-mail" required />
-          <button type="submit">ENTRAR</button>
+          <input id="mailing-email" name="email" type="email" autocomplete="email" placeholder="inscrições em breve" disabled />
+          <button type="button" disabled>EM BREVE</button>
         </div>
-        <p class="mailing-note" data-mailing-note aria-live="polite">Novidades da Falls, sem excesso.</p>
+        <p class="mailing-note">A lista será ativada quando o serviço de inscrição estiver conectado.</p>
       </form>
     </header>
 
@@ -117,17 +226,36 @@ const updates = [
       <section class="releases-panel panel" id="lancamentos" aria-labelledby="releases-title">
         <div class="panel-heading">
           <h2 id="releases-title">ÚLTIMOS LANÇAMENTOS</h2>
-          <span class="panel-link">VER TODOS <b aria-hidden="true">›</b></span>
+          <span class="panel-status">CATÁLOGO SPOTIFY</span>
         </div>
         <div class="release-list">
-          {releases.map((release, index) => (
+          {releases.map((release) => (
             <article class="release-row">
-              <div class={`release-art release-art-${index + 1}`} aria-hidden="true"><span>FR</span></div>
+              <div
+                class="release-art"
+                role="img"
+                aria-label={`Arte de ${release.title} em preparação`}
+              >
+                <span>FR</span>
+              </div>
               <div class="release-info">
                 <h3>{release.title}</h3>
-                <p>{release.kind}</p>
+                <p>
+                  {release.artist ?? "Duaveira"} <span>•</span> {release.kind}
+                  {release.year && ` / ${release.year}`}
+                </p>
+                <div class="release-links">
+                  {release.spotify && (
+                    <a href={release.spotify} target="_blank" rel="noopener noreferrer">SPOTIFY</a>
+                  )}
+                  {release.youtube && (
+                    <a href={release.youtube} target="_blank" rel="noopener noreferrer">YOUTUBE</a>
+                  )}
+                  {release.bandcamp && (
+                    <a href={release.bandcamp} target="_blank" rel="noopener noreferrer">BANDCAMP</a>
+                  )}
+                </div>
               </div>
-              <span class="release-arrow" aria-hidden="true">›</span>
             </article>
           ))}
         </div>
@@ -136,18 +264,23 @@ const updates = [
       <section class="artists-panel panel" id="artistas" aria-labelledby="artists-title">
         <div class="panel-heading">
           <h2 id="artists-title">ARTISTAS</h2>
-          <span class="panel-link">PROJETOS DA FALLS RECORDS <b aria-hidden="true">›</b></span>
+          <span class="panel-status">BIOGRAFIA RASCUNHO</span>
         </div>
-        <div class="artist-grid">
-          {artists.map((artist, index) => (
-            <article class={`artist-card artist-card-${index + 1}`}>
-              <div class="artist-art" aria-hidden="true">
-                <span class="artist-monogram">FR</span>
-                <span class="artist-orbit"></span>
-                <span class="artist-stripe"></span>
+        <div class="artist-profiles">
+          {artists.map((artist) => (
+            <article class="artist-profile">
+              <div class="artist-profile-art" role="img" aria-label={`Imagem de ${artist.name} a adicionar`}>
+                <span>{artist.name}</span>
               </div>
-              <h3>{artist}</h3>
-              <p>PERFIL DO ARTISTA</p>
+              <div class="artist-profile-copy">
+                <h3>{artist.name}</h3>
+                <p>{artist.bio}</p>
+                <nav class="artist-links" aria-label={`Canais oficiais de ${artist.name}`}>
+                  {artist.links.map((link) => (
+                    <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+                  ))}
+                </nav>
+              </div>
             </article>
           ))}
         </div>
@@ -156,7 +289,7 @@ const updates = [
       <section class="news-panel panel" id="novidades" aria-labelledby="news-title">
         <div class="panel-heading">
           <h2 id="news-title">NOVIDADES &amp; ATUALIZAÇÕES</h2>
-          <span class="panel-link">VER TODAS <b aria-hidden="true">›</b></span>
+          <span class="panel-status">ATUALIZAÇÕES EM BREVE</span>
         </div>
         <div class="news-list">
           {updates.map((update) => (
