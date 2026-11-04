@@ -94,6 +94,19 @@ const releases = [
 
 const artists = [
   {
+    name: "Rise Rise, Forks",
+    bio: "Banda independente da Falls Records. Este espaço reúne seus canais oficiais e músicas; a apresentação será atualizada com a descrição aprovada pela banda.",
+    featured: true,
+    audience: "1 mil+ seguidores no Instagram",
+    audienceChecked: "Consulta em 4 nov. 2026",
+    links: [
+      { label: "Linktree oficial", href: "https://linktr.ee/RiseForksBand" },
+      { label: "Instagram", href: "https://www.instagram.com/riseforksband/" },
+      { label: "TikTok", href: "https://www.tiktok.com/@rise.rise.forks" },
+      { label: "Bandcamp", href: "https://riseriseforks.bandcamp.com/track/just-a-vapor" },
+    ],
+  },
+  {
     name: "Duaveira",
     bio: "Duaveira é um projeto musical independente ligado à Falls Records. Este espaço reúne seus lançamentos e canais oficiais; a apresentação será atualizada com a visão do artista.",
     links: [
@@ -110,16 +123,6 @@ const artists = [
       { label: "Instagram", href: "https://www.instagram.com/wowbk/" },
       { label: "Facebook", href: "https://www.facebook.com/wowbecca" },
       { label: "YouTube — Hurt Only", href: "https://www.youtube.com/watch?v=HFKa7-pvGgg" },
-    ],
-  },
-  {
-    name: "Rise Rise, Forks",
-    bio: "Banda independente da Falls Records. Este espaço reúne seus canais oficiais e músicas; a apresentação será atualizada com a descrição aprovada pela banda.",
-    links: [
-      { label: "Linktree oficial", href: "https://linktr.ee/RiseForksBand" },
-      { label: "Instagram", href: "https://www.instagram.com/riseforksband/" },
-      { label: "TikTok", href: "https://www.tiktok.com/@rise.rise.forks" },
-      { label: "Bandcamp", href: "https://riseriseforks.bandcamp.com/track/just-a-vapor" },
     ],
   },
 ];
@@ -268,11 +271,18 @@ const updates = [
         </div>
         <div class="artist-profiles">
           {artists.map((artist) => (
-            <article class="artist-profile">
+            <article class:list={["artist-profile", { "artist-profile-featured": artist.featured }]}>
               <div class="artist-profile-art" role="img" aria-label={`Imagem de ${artist.name} a adicionar`}>
                 <span>{artist.name}</span>
               </div>
               <div class="artist-profile-copy">
+                {artist.featured && (
+                  <div class="artist-featured-meta">
+                    <span class="artist-featured-badge">EM DESTAQUE</span>
+                    <span>{artist.audience}</span>
+                    <small>{artist.audienceChecked} · Instagram</small>
+                  </div>
+                )}
                 <h3>{artist.name}</h3>
                 <p>{artist.bio}</p>
                 <nav class="artist-links" aria-label={`Canais oficiais de ${artist.name}`}>
