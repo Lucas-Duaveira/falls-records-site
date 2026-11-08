@@ -6,7 +6,6 @@ coverage/
 .env
 .env.*
 !.env.example
-radio-worker/.dev.vars
 media-source/
 npm-debug.log*
 Thumbs.db

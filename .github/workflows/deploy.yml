@@ -13,8 +13,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PUBLIC_RADIO_HOST_API_URL: ${{ vars.PUBLIC_RADIO_HOST_API_URL }}
     steps:
       - name: Baixar os arquivos do projeto
         uses: actions/checkout@v7

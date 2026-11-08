@@ -243,7 +243,6 @@ a {
 .panel-heading,
 .radio-selection,
 .radio-note,
-.radio-button,
 .news-label,
 .footer-links,
 .footer-site,
@@ -483,8 +482,7 @@ a {
   font-size: 0.62rem;
 }
 
-.recording-mark i,
-.radio-dot {
+.recording-mark i {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -612,7 +610,7 @@ a {
 
 .radio-panel {
   display: flex;
-  min-height: 360px;
+  min-height: 0;
   flex-direction: column;
   grid-column: 3;
   padding: 0 16px 16px;
@@ -646,66 +644,8 @@ a {
   font-size: 1rem;
 }
 
-.status-badge {
-  padding: 0.28rem 0.55rem;
-  border: 1px solid var(--red);
-  color: var(--red);
-  font-family: var(--font-label);
-  font-size: 0.58rem;
-  letter-spacing: 0.04em;
-}
-
-.radio-visual {
-  position: relative;
-  display: grid;
-  width: 164px;
-  height: 156px;
-  flex: 0 0 auto;
-  place-items: center;
-  align-self: center;
-  margin: 13px auto 3px;
-}
-
-.radio-ring {
-  position: absolute;
-  border: 1px solid rgb(82 137 188 / 52%);
-  border-radius: 50%;
-}
-
-.radio-ring-outer {
-  width: 148px;
-  height: 148px;
-}
-
-.radio-ring-middle {
-  width: 118px;
-  height: 118px;
-  border-color: rgb(125 183 234 / 42%);
-}
-
-.radio-ring-inner {
-  width: 88px;
-  height: 88px;
-}
-
-.radio-monogram {
-  position: relative;
-  z-index: 1;
-  font-family: var(--font-title);
-  font-size: 1.8rem;
-  font-weight: 900;
-}
-
-.radio-dot {
-  position: absolute;
-  top: 38px;
-  right: 27px;
-  width: 9px;
-  height: 9px;
-}
-
 .radio-selection {
-  margin: 0.35rem 0 0;
+  margin: 0.8rem 0 0;
   color: var(--white);
   font-size: 0.65rem;
   text-align: center;
@@ -713,78 +653,24 @@ a {
 }
 
 .radio-note {
-  margin: 0.45rem 0 0.55rem;
+  margin: 0.4rem 0 0.8rem;
   color: var(--muted);
-  font-size: 0.58rem;
+  font-size: 0.62rem;
   text-align: center;
-}
-
-.radio-track-list {
-  margin: 0 auto 0.7rem;
-  color: var(--muted);
-  font-size: 0.56rem;
-  text-align: center;
-}
-
-.radio-track-list p {
-  margin: 0.2rem 0;
-}
-
-.radio-track-list span {
-  color: var(--white);
-}
-
-.radio-track-list a,
-.radio-fallback-link {
-  color: var(--blue-light);
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
-}
-
-.radio-track-list a:hover,
-.radio-track-list a:focus-visible,
-.radio-fallback-link:hover,
-.radio-fallback-link:focus-visible {
-  color: var(--white);
 }
 
 .radio-player {
   width: 100%;
   overflow: hidden;
   border: 0;
-  text-align: center;
-}
-
-.radio-fallback-link {
-  display: inline-block;
-  margin: 0.9rem 0;
-  font-size: 0.65rem;
 }
 
 .radio-player iframe {
   display: block;
+  width: 100%;
   max-width: 100%;
-}
-
-.radio-button {
-  display: flex;
-  min-height: 39px;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: auto;
-  border: 1px solid var(--line);
-  border-radius: 0;
-  background: var(--surface);
-  color: var(--blue-light);
-  font-size: 0.61rem;
-  letter-spacing: 0.03em;
-  cursor: pointer;
-}
-
-.radio-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.82;
+  border: 0;
+  border-radius: 12px;
 }
 
 .releases-panel,
@@ -1274,14 +1160,6 @@ a {
 
   .artists-panel {
     grid-column: 2;
-  }
-
-  .radio-panel {
-    min-height: 330px;
-  }
-
-  .radio-visual {
-    margin-top: 8px;
   }
 
   .site-footer {
