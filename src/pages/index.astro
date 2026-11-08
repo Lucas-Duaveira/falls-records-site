@@ -287,12 +287,18 @@ const updates = [
         </div>
         <div class="release-list">
           {releasesForDisplay.map((release) => (
-            <article class="release-row" data-popularity-rank={release.popularityRank}>
+            <article
+              class="release-row"
+              data-release-title={release.title}
+              data-release-artist={release.artist ?? "Duaveira"}
+              data-popularity-rank={release.popularityRank}
+            >
               <div
                 class="release-art"
                 role="img"
                 aria-label={`Arte de ${release.title} em preparação`}
               >
+                <img class="release-art-image" alt="" loading="lazy" decoding="async" hidden />
                 <span>FR</span>
               </div>
               <div class="release-info">
@@ -402,5 +408,106 @@ const updates = [
     }
 
     releaseList.append(...featuredRows, ...remainingRows);
+
+    const normalizeCatalogName = (value) =>
+      value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+
+    const rowsByArtist = new Map();
+    for (const row of rows) {
+      const artist = row.dataset.releaseArtist;
+      if (!artist) continue;
+
+      const artistRows = rowsByArtist.get(artist) ?? [];
+      artistRows.push(row);
+      rowsByArtist.set(artist, artistRows);
+    }
+
+    const loadArtistArtwork = async (artist, artistRows) => {
+      const searchUrl = new URL("https://itunes.apple.com/search");
+      searchUrl.searchParams.set("term", artist);
+      searchUrl.searchParams.set("entity", "album");
+      searchUrl.searchParams.set("limit", "200");
+
+      try {
+        const response = await fetch(searchUrl);
+        if (!response.ok) {
+          throw new Error(`Apple Music respondeu com status ${response.status}.`);
+        }
+
+        const catalog = await response.json();
+        if (!Array.isArray(catalog.results)) {
+          throw new Error("A resposta do catálogo Apple Music é inválida.");
+        }
+
+        for (const row of artistRows) {
+          const title = normalizeCatalogName(row.dataset.releaseTitle ?? "");
+          const match = catalog.results.find(
+            (release) =>
+              normalizeCatalogName(release.artistName ?? "") ===
+                normalizeCatalogName(artist) &&
+              normalizeCatalogName(release.collectionName ?? "").includes(title),
+          );
+          const image = row.querySelector(".release-art-image");
+          const artwork = row.querySelector(".release-art");
+
+          if (!match?.artworkUrl100 || !(image instanceof HTMLImageElement)) {
+            artwork?.setAttribute(
+              "aria-label",
+              `Capa oficial de ${row.dataset.releaseTitle} não encontrada; monograma Falls exibido`,
+            );
+            console.warn(`Capa não encontrada no Apple Music: ${row.dataset.releaseTitle}`);
+            continue;
+          }
+
+          const fallback = artwork?.querySelector("span");
+          image.addEventListener(
+            "load",
+            () => {
+              image.hidden = false;
+              fallback?.setAttribute("hidden", "");
+              artwork?.classList.add("has-image");
+              artwork?.setAttribute(
+                "aria-label",
+                `Capa de ${row.dataset.releaseTitle} por ${artist}`,
+              );
+            },
+            { once: true },
+          );
+          image.addEventListener(
+            "error",
+            () => {
+              artwork?.setAttribute(
+                "aria-label",
+                `Capa de ${row.dataset.releaseTitle} indisponível; monograma Falls exibido`,
+              );
+              console.warn(`Não foi possível carregar a capa: ${row.dataset.releaseTitle}`);
+            },
+            { once: true },
+          );
+          image.src = match.artworkUrl100.replace(
+            /\/\d+x\d+bb\.(jpg|png)$/i,
+            "/600x600bb.$1",
+          );
+        }
+      } catch (error) {
+        for (const row of artistRows) {
+          row.querySelector(".release-art")?.setAttribute(
+            "aria-label",
+            `Busca da capa de ${row.dataset.releaseTitle} indisponível; monograma Falls exibido`,
+          );
+        }
+        console.error(`Não foi possível buscar capas para ${artist}.`, error);
+      }
+    };
+
+    void Promise.all(
+      [...rowsByArtist].map(([artist, artistRows]) =>
+        loadArtistArtwork(artist, artistRows),
+      ),
+    );
   }
 </script>
