@@ -250,15 +250,16 @@ const updates = [
           <span class="recording-mark"><i></i> REC</span>
         </div>
 
-        <div class="cover-card" role="img" aria-label="Arte provisória de lançamento da Falls Records">
-          <div class="cover-art" aria-hidden="true">
-            <span class="cover-code">FR / ARTE EM DEFINIÇÃO</span>
-            <span class="cover-disc"></span>
-            <span class="cover-river cover-river-one"></span>
-            <span class="cover-river cover-river-two"></span>
-            <span class="cover-wordmark">FALLS</span>
-            <span class="cover-records">RECORDS <b>•</b> MÚSICA INDEPENDENTE</span>
-          </div>
+        <div class="cover-card">
+          <img
+            class="cover-card-image"
+            src={`${import.meta.env.BASE_URL}/assets/images/falls-records-artwork.jpg`}
+            alt="Arte da Falls Records com o logotipo FR em fundo azul"
+            width="480"
+            height="484"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </section>
 
@@ -267,15 +268,18 @@ const updates = [
           <h2 id="radio-title">RÁDIO FALLS</h2>
           <span class="panel-status">PLAYLIST + LOCUÇÃO</span>
         </div>
-        <div class="radio-cover">
-          <img
-            src={`${import.meta.env.BASE_URL}/assets/images/radio-falls.jpg`}
-            alt="Logo da Falls Records em fundo azul na capa da Rádio Falls"
-            width="480"
-            height="484"
-            loading="lazy"
-            decoding="async"
-          />
+        <div
+          class="radio-cover"
+          role="img"
+          aria-label="Capa provisória da Rádio Falls Records. Arte final em breve."
+        >
+          <span class="radio-cover-code">FR / RADIO SESSION</span>
+          <span class="radio-cover-disc"></span>
+          <span class="radio-cover-wave radio-cover-wave-one"></span>
+          <span class="radio-cover-wave radio-cover-wave-two"></span>
+          <span class="radio-cover-wordmark">FALLS</span>
+          <span class="radio-cover-title">RÁDIO RECORDS</span>
+          <span class="radio-cover-caption">ARTISTAS <b>•</b> LANÇAMENTOS <b>•</b> SOM EM MOVIMENTO</span>
         </div>
         <div class="radio-announcer" data-radio-announcer>
           <p class="radio-selection">APRESENTAÇÃO FALLS</p>

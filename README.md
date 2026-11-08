@@ -48,13 +48,13 @@ A saída estática será gerada em `dist/`.
 
 ## Rádio Falls
 
-A seção Rádio usa a capa da Falls Records enviada para o site e incorpora a playlist pública “Falls Records — Rádio” pelo player oficial compacto do Spotify. O botão **Ouvir boas-vindas** narra uma apresentação curta usando a voz em português disponível no navegador; ele não inicia nem controla a música. A pessoa inicia a playlist separadamente pelo botão de play do Spotify.
+A seção Rádio incorpora a playlist pública “Falls Records — Rádio” pelo player oficial compacto do Spotify. O botão **Ouvir boas-vindas** narra uma apresentação curta usando a voz em português disponível no navegador; ele não inicia nem controla a música. A pessoa inicia a playlist separadamente pelo botão de play do Spotify.
 
 Esta prévia usa um texto de boas-vindas fixo e síntese de voz do navegador, não geração de falas por IA. Um apresentador que gere textos dinâmicos com IA poderá ser adicionado depois por meio de um serviço protegido no servidor, sem expor chaves no site estático.
 
 As capas dos lançamentos são buscadas automaticamente no catálogo público do Apple Music, consultando as faixas associadas ao artista e comparando o título da música. Se um lançamento não estiver nesse catálogo ou a imagem não carregar, o site mantém o monograma Falls como alternativa. A busca não altera nem controla o player do Spotify.
 
-Os perfis dos artistas exibem imagens públicas dos perfis oficiais no Spotify e no Linktree, além de links para seus canais oficiais e plataformas de música. A capa de “Well...” usa a imagem do lançamento disponível diretamente no Spotify, pois esse single não aparece no catálogo Apple Music consultado.
+Os perfis dos artistas exibem imagens públicas dos perfis oficiais no Spotify e no Linktree, além de links para seus canais oficiais e plataformas de música. A capa de “Well...” usa a imagem do lançamento disponível diretamente no Spotify, pois esse single não aparece no catálogo Apple Music consultado. A imagem compartilhada no Instagram da Falls Records compõe a arte de destaque na página inicial.
 
 ## Prévia de teste no GitHub Pages
 
