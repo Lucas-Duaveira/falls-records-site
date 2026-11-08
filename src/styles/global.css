@@ -713,10 +713,36 @@ a {
 }
 
 .radio-note {
-  margin: 0.45rem 0 0.8rem;
+  margin: 0.45rem 0 0.55rem;
   color: var(--muted);
   font-size: 0.58rem;
   text-align: center;
+}
+
+.radio-track-list {
+  margin: 0 auto 0.7rem;
+  color: var(--muted);
+  font-size: 0.56rem;
+  text-align: center;
+}
+
+.radio-track-list p {
+  margin: 0.2rem 0;
+}
+
+.radio-track-list span {
+  color: var(--white);
+}
+
+.radio-player {
+  width: 100%;
+  overflow: hidden;
+  border: 0;
+}
+
+.radio-player iframe {
+  display: block;
+  max-width: 100%;
 }
 
 .radio-button {
@@ -732,6 +758,7 @@ a {
   color: var(--blue-light);
   font-size: 0.61rem;
   letter-spacing: 0.03em;
+  cursor: pointer;
 }
 
 .radio-button:disabled {

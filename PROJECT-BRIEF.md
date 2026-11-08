@@ -32,6 +32,8 @@ Essa estrutura será ajustada com o conteúdo real antes de virar navegação de
 ## Rádio — escopo inicial
 
 - A programação deve usar somente músicas cobertas pelas parcerias da gravadora.
+- A prévia da rádio pode apresentar faixas com chamadas curtas geradas por IA; o áudio começa apenas após uma ação do visitante e usa vídeos oficiais incorporados da plataforma.
+- As chamadas da prévia são geradas por um serviço no servidor; a narração usa a síntese de fala do navegador. Chaves de API devem permanecer como segredos do serviço, nunca no site estático.
 - O formato ainda será definido: AutoDJ contínuo, programas em horários marcados ou os dois.
 - Antes da transmissão pública, confirmar que os acordos autorizam web rádio/webcasting e verificar licenciamento e envio de repertório com o ECAD.
 - A transmissão poderá usar um serviço de rádio separado; o site exibirá o player e as informações da faixa atual.

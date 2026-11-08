@@ -45,6 +45,30 @@ npm run preview
 
 A saída estática será gerada em `dist/`.
 
+## Rádio Falls — prévia com apresentador de IA
+
+A rádio de teste toca vídeos oficiais do YouTube somente depois que a pessoa aperta **Ouvir**. Entre as faixas, um Cloudflare Worker gera uma chamada curta usando a API da OpenAI; a voz é sintetizada pelo navegador do ouvinte. Sem o Worker configurado, as faixas continuam tocando, mas as chamadas de IA não são geradas.
+
+Esta prévia inclui três vídeos já vinculados aos lançamentos do site: “Soft Sparks”, de Duaveira; “You Should Care Less”, de Rise Rise, Forks; e “Hurt Only”, de Rebecca Silveiras. Para adicionar faixas, confirme que há um vídeo oficial e autorização para a reprodução incorporada, e atualize a seleção em `src/pages/index.astro` e a lista permitida em `radio-worker/src/index.js`.
+
+### Configurar o serviço de IA
+
+1. Crie ou acesse uma conta Cloudflare com Workers e habilite o uso da API da OpenAI, incluindo faturamento e um limite de gastos adequado.
+2. Em `radio-worker/wrangler.jsonc`, configure `ALLOWED_ORIGIN` com a origem exata do site publicado. Para GitHub Pages neste repositório, use `https://lucas-duaveira.github.io`.
+3. Na pasta `radio-worker/`, faça o deploy com Wrangler e salve a chave da OpenAI como segredo do Worker (nunca no código do site):
+
+   ```bash
+   npx wrangler secret put OPENAI_API_KEY
+   npx wrangler deploy
+   ```
+
+4. Configure `PUBLIC_RADIO_HOST_API_URL` como variável de ambiente do build do Astro, com a URL HTTPS do Worker, incluindo a rota `/`. No GitHub, adicione-a em **Settings → Secrets and variables → Actions → Variables** para que o workflow de publicação a receba. Para testar localmente com o Worker publicado, coloque a URL em `.env` como `PUBLIC_RADIO_HOST_API_URL=https://...workers.dev/`.
+5. Publique o site novamente e teste o botão Rádio. O Worker limita chamadas por endereço IP e aceita apenas IDs de faixas cadastradas.
+
+Para testar a IA inteiramente no computador, crie `radio-worker/.dev.vars` com `ALLOWED_ORIGIN=http://localhost:4321` e `OPENAI_API_KEY=...`; o arquivo é ignorado pelo Git. Rode `npx wrangler dev` dentro de `radio-worker/` e defina `PUBLIC_RADIO_HOST_API_URL=http://localhost:8787/` no `.env` da raiz. A origem permitida local substitui a configuração de produção apenas durante o Worker local.
+
+Chamadas à API podem gerar custos. A voz usa a síntese de fala disponível no navegador e varia conforme o dispositivo. Antes de lançar uma rádio pública permanente, confirme os direitos de reprodução, inclusive licenciamento e obrigações aplicáveis.
+
 ## Prévia de teste no GitHub Pages
 
 - Endereço: <https://lucas-duaveira.github.io/falls-records-site/>

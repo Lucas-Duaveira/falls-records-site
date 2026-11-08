@@ -143,6 +143,27 @@ const artistsByDisplayOrder = [...artists].sort(
 const updates = [
   { label: "EM BREVE", text: "Estamos reunindo novidades e informações oficiais dos projetos da gravadora." },
 ];
+
+const radioTracks = [
+  {
+    id: "soft-sparks",
+    title: "Soft Sparks",
+    artist: "Duaveira",
+    videoId: "fCwj8bCMbmg",
+  },
+  {
+    id: "you-should-care-less",
+    title: "You Should Care Less",
+    artist: "Rise Rise, Forks",
+    videoId: "_dBPnNc7LNU",
+  },
+  {
+    id: "hurt-only",
+    title: "Hurt Only",
+    artist: "Rebecca Silveiras",
+    videoId: "HFKa7-pvGgg",
+  },
+];
 ---
 
 <BaseLayout
@@ -238,10 +259,17 @@ const updates = [
         </div>
       </section>
 
-      <aside class="radio-panel panel" id="radio" aria-labelledby="radio-title">
+      <aside
+        class="radio-panel panel"
+        id="radio"
+        aria-labelledby="radio-title"
+        data-radio
+        data-ai-endpoint={import.meta.env.PUBLIC_RADIO_HOST_API_URL ?? ""}
+        data-radio-tracks={JSON.stringify(radioTracks)}
+      >
         <div class="panel-heading radio-heading">
           <h2 id="radio-title">RÁDIO FALLS</h2>
-          <span class="status-badge">EM BREVE</span>
+          <span class="status-badge">PRÉVIA</span>
         </div>
         <div class="radio-visual" aria-hidden="true">
           <span class="radio-ring radio-ring-outer"></span>
@@ -251,9 +279,17 @@ const updates = [
           <i class="radio-dot"></i>
         </div>
         <p class="radio-selection">SELEÇÃO DE ARTISTAS PARCEIROS</p>
-        <p class="radio-note">Formato da programação em definição</p>
-        <button class="radio-button" type="button" disabled>
-          <span aria-hidden="true">▶</span> OUVIR QUANDO DISPONÍVEL
+        <p class="radio-note" data-radio-status aria-live="polite">
+          Aperte para ouvir uma seleção de vídeos oficiais. As chamadas de IA serão ativadas após a configuração do serviço.
+        </p>
+        <div class="radio-track-list" aria-label="Faixas desta prévia">
+          {radioTracks.map((track) => (
+            <p><span>{track.artist}</span> / {track.title}</p>
+          ))}
+        </div>
+        <div class="radio-player" data-radio-player></div>
+        <button class="radio-button" type="button" data-radio-toggle>
+          <span aria-hidden="true">▶</span> OUVIR A RÁDIO
         </button>
       </aside>
 
