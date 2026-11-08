@@ -29,35 +29,51 @@ if (
   let player;
   let active = false;
   let currentTrackIndex = 0;
-  let youtubeApiPromise;
 
   const setStatus = (message) => {
     radioStatus.textContent = message;
   };
 
-  const loadYouTubeApi = () => {
-    if (window.YT?.Player) {
-      return Promise.resolve();
-    }
+  const loadYouTubeApi = () =>
+    new Promise((resolve, reject) => {
+      if (window.YT?.Player) {
+        resolve(window.YT);
+        return;
+      }
 
-    if (youtubeApiPromise) {
-      return youtubeApiPromise;
-    }
+      const script =
+        document.querySelector('script[src="https://www.youtube.com/iframe_api"]') ??
+        document.createElement("script");
+      const cleanup = () => {
+        window.clearTimeout(timeoutId);
+        script.removeEventListener("error", onError);
+      };
+      const onError = () => {
+        cleanup();
+        reject(new Error("A API do YouTube não carregou. Use o botão de reprodução no vídeo."));
+      };
+      const timeoutId = window.setTimeout(() => {
+        cleanup();
+        reject(new Error("O YouTube está demorando para responder. Use o botão de reprodução no vídeo."));
+      }, 12000);
+      const previousCallback = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => {
+        previousCallback?.();
+        cleanup();
+        resolve(window.YT);
+      };
+      script.addEventListener("error", onError, { once: true });
 
-    youtubeApiPromise = new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = "https://www.youtube.com/iframe_api";
-      script.async = true;
-      script.addEventListener(
-        "error",
-        () => reject(new Error("Não foi possível carregar o player do YouTube.")),
-        { once: true },
-      );
-      window.onYouTubeIframeAPIReady = resolve;
-      document.head.append(script);
+      if (!script.isConnected) {
+        script.src = "https://www.youtube.com/iframe_api";
+        script.async = true;
+        document.head.append(script);
+      }
     });
 
-    return youtubeApiPromise;
+  const setButtonState = (isActive) => {
+    radioToggle.textContent = isActive ? "■ PARAR A RÁDIO" : "▶ OUVIR A RÁDIO";
+    radioToggle.setAttribute("aria-pressed", String(isActive));
   };
 
   const announceTrack = async (track) => {
@@ -110,37 +126,51 @@ if (
     }
   };
 
-  const playTrack = async (trackIndex, shouldAnnounce = true) => {
+  const playTrack = (trackIndex, shouldAnnounce = false) => {
     if (!active) {
       return;
     }
 
     currentTrackIndex = trackIndex % tracks.length;
     const track = tracks[currentTrackIndex];
-    const announcementStatus = shouldAnnounce ? await announceTrack(track) : "";
+    const startTrack = (announcementStatus = "") => {
+      if (!active || currentTrackIndex !== trackIndex % tracks.length) {
+        return;
+      }
 
-    if (!active) {
-      return;
+      setStatus(
+        `${announcementStatus ? `${announcementStatus} ` : ""}Tocando ${track.title}, de ${track.artist}.`,
+      );
+      player.loadVideoById(track.videoId);
+    };
+
+    if (shouldAnnounce) {
+      void announceTrack(track).then(startTrack);
+    } else {
+      startTrack();
     }
-
-    setStatus(
-      `${announcementStatus ? `${announcementStatus} ` : ""}Tocando ${track.title}, de ${track.artist}.`,
-    );
-    player.loadVideoById(track.videoId);
   };
 
   const onPlayerStateChange = (event) => {
-    if (event.data === window.YT.PlayerState.ENDED && active) {
-      void playTrack(currentTrackIndex + 1);
+    if (event.data === window.YT.PlayerState.PLAYING && active) {
+      const track = tracks[currentTrackIndex];
+      setStatus(`Tocando ${track.title}, de ${track.artist}.`);
+    } else if (event.data === window.YT.PlayerState.ENDED && active) {
+      playTrack(currentTrackIndex + 1, true);
     }
   };
 
-  radioToggle.addEventListener("click", async () => {
+  radioToggle.setAttribute("aria-pressed", "false");
+  radioToggle.addEventListener("click", () => {
     if (active) {
       active = false;
-      player?.stopVideo();
+      if (player) {
+        player.stopVideo();
+      } else {
+        radioPlayerContainer.replaceChildren();
+      }
       window.speechSynthesis?.cancel();
-      radioToggle.innerHTML = '<span aria-hidden="true">▶</span> OUVIR A RÁDIO';
+      setButtonState(false);
       setStatus("Rádio pausada.");
       return;
     }
@@ -151,48 +181,66 @@ if (
     }
 
     active = true;
-    radioToggle.innerHTML = '<span aria-hidden="true">■</span> PARAR A RÁDIO';
-    setStatus("Conectando ao player do YouTube...");
+    setButtonState(true);
+    setStatus("Abrindo o player. Se a música não iniciar, aperte Play no vídeo.");
 
-    try {
-      await loadYouTubeApi();
-      if (!active) {
-        return;
-      }
+    radioPlayerContainer.replaceChildren();
+    const iframe = document.createElement("iframe");
+    const currentTrack = tracks[currentTrackIndex];
+    iframe.title = `${currentTrack.title} — ${currentTrack.artist}`;
+    iframe.width = "100%";
+    iframe.height = "170";
+    iframe.allow = "autoplay; encrypted-media; picture-in-picture";
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.src =
+      `https://www.youtube-nocookie.com/embed/${encodeURIComponent(currentTrack.videoId)}` +
+      "?autoplay=1&enablejsapi=1&playsinline=1&rel=0" +
+      `&origin=${encodeURIComponent(window.location.origin)}`;
+    radioPlayerContainer.append(iframe);
 
-      if (player) {
-        await playTrack(currentTrackIndex, false);
-        return;
-      }
-
-      player = new window.YT.Player(radioPlayerContainer, {
-        height: "170",
-        width: "100%",
-        videoId: tracks[currentTrackIndex].videoId,
-        playerVars: {
-          enablejsapi: 1,
-          origin: window.location.origin,
-          playsinline: 1,
-          rel: 0,
-        },
-        events: {
-          onReady: () => {
-            if (!active) {
+    void loadYouTubeApi()
+      .then(
+        (youtube) =>
+          new Promise((resolve, reject) => {
+            if (!active || player) {
+              resolve();
               return;
             }
-            setStatus(`Tocando ${tracks[currentTrackIndex].title}, de ${tracks[currentTrackIndex].artist}.`);
-            player.playVideo();
-          },
-          onStateChange: onPlayerStateChange,
-          onError: () => setStatus("O vídeo não pôde ser reproduzido. Tente a próxima faixa mais tarde."),
-        },
+
+            try {
+              player = new youtube.Player(iframe, {
+                events: {
+                  onReady: () => {
+                    if (active) {
+                      setStatus(
+                        `Player pronto para ${tracks[currentTrackIndex].title}. Se não tocar, aperte Play no vídeo.`,
+                      );
+                    }
+                    resolve();
+                  },
+                  onStateChange: onPlayerStateChange,
+                  onError: (event) => {
+                    if (active) {
+                      setStatus(
+                        `O YouTube não conseguiu reproduzir esta faixa (erro ${event.data}). Confira se o vídeo permite reprodução incorporada.`,
+                      );
+                    }
+                    resolve();
+                  },
+                },
+              });
+            } catch (error) {
+              reject(error);
+            }
+          }),
+      )
+      .catch((error) => {
+        if (active) {
+          const message =
+            error instanceof Error ? error.message : "Não foi possível carregar o player do YouTube.";
+          setStatus(`${message} A faixa ainda pode ser iniciada pelo player do vídeo.`);
+        }
       });
-    } catch (error) {
-      active = false;
-      youtubeApiPromise = undefined;
-      radioToggle.innerHTML = '<span aria-hidden="true">▶</span> OUVIR A RÁDIO';
-      const message = error instanceof Error ? error.message : "Não foi possível iniciar a rádio.";
-      setStatus(message);
-    }
   });
 }
