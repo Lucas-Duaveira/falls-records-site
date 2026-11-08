@@ -47,9 +47,9 @@ A saída estática será gerada em `dist/`.
 
 ## Rádio Falls
 
-A seção Rádio incorpora a playlist pública “Falls Records — Rádio” pelo player oficial do Spotify. O ouvinte aperta play no próprio player; a reprodução e quaisquer limitações de conta são administradas pelo Spotify. Para atualizar as faixas, edite a playlist no Spotify — não é necessário alterar o código do site.
+A seção Rádio está em preparação e, por enquanto, mostra apenas a identidade visual provisória da estação. A arte final será fornecida pela gravadora antes de adicionar um player ou programação.
 
-Antes de divulgar a playlist, confirme que os artistas autorizaram a inclusão e a reprodução das faixas nos termos aplicáveis.
+Uma integração de áudio poderá ser adicionada depois que a identidade visual e as autorizações de reprodução forem confirmadas.
 
 ## Prévia de teste no GitHub Pages
 

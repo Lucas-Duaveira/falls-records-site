@@ -32,9 +32,9 @@ Essa estrutura será ajustada com o conteúdo real antes de virar navegação de
 ## Rádio — escopo inicial
 
 - A programação deve usar somente músicas cobertas pelas parcerias da gravadora.
-- A prévia atual incorpora uma playlist pública do Spotify; a pessoa inicia a reprodução pelo player oficial.
-- Acesso à reprodução completa pode depender de login ou das regras da conta do ouvinte no Spotify.
-- Antes da publicação, confirmar que os artistas autorizaram a inclusão das faixas na playlist e que os termos aplicáveis permitem incorporá-la.
+- A seção atual é apenas um layout visual provisório; a capa final será fornecida pela gravadora.
+- Não exibir player, playlist ou lista de faixas até definir a experiência de áudio.
+- Uma integração de áudio e uma apresentação por IA podem ser consideradas posteriormente, após validar a identidade visual e as autorizações dos artistas.
 - O formato de uma eventual rádio contínua ainda será definido: AutoDJ, programas em horários marcados ou os dois.
 - Antes da transmissão pública, confirmar que os acordos autorizam web rádio/webcasting e verificar licenciamento e envio de repertório com o ECAD.
 - A transmissão poderá usar um serviço de rádio separado; o site exibirá o player e as informações da faixa atual.
