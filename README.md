@@ -47,9 +47,9 @@ A saída estática será gerada em `dist/`.
 
 ## Rádio Falls
 
-A seção Rádio está em preparação e, por enquanto, mostra apenas a identidade visual provisória da estação. A arte final será fornecida pela gravadora antes de adicionar um player ou programação.
+A seção Rádio incorpora a playlist pública “Falls Records — Rádio” pelo player oficial compacto do Spotify. O botão **Ouvir boas-vindas** narra uma apresentação curta usando a voz em português disponível no navegador; ele não inicia nem controla a música. A pessoa inicia a playlist separadamente pelo botão de play do Spotify.
 
-Uma integração de áudio poderá ser adicionada depois que a identidade visual e as autorizações de reprodução forem confirmadas.
+Esta prévia usa um texto de boas-vindas fixo e síntese de voz do navegador, não geração de falas por IA. Um apresentador que gere textos dinâmicos com IA poderá ser adicionado depois por meio de um serviço protegido no servidor, sem expor chaves no site estático.
 
 ## Prévia de teste no GitHub Pages
 

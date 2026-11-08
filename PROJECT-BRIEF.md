@@ -32,9 +32,10 @@ Essa estrutura será ajustada com o conteúdo real antes de virar navegação de
 ## Rádio — escopo inicial
 
 - A programação deve usar somente músicas cobertas pelas parcerias da gravadora.
-- A seção atual é apenas um layout visual provisório; a capa final será fornecida pela gravadora.
-- Não exibir player, playlist ou lista de faixas até definir a experiência de áudio.
-- Uma integração de áudio e uma apresentação por IA podem ser consideradas posteriormente, após validar a identidade visual e as autorizações dos artistas.
+- A prévia incorpora a playlist pública da Falls no player compacto oficial do Spotify.
+- Um botão separado narra as boas-vindas com síntese de fala em português do navegador; o ouvinte inicia a música manualmente no player Spotify.
+- A apresentação atual usa texto fixo; para gerar falas com IA, usar um serviço seguro no servidor e manter as chaves fora do site estático.
+- Confirmar que os artistas autorizaram a inclusão das faixas na playlist e que os termos aplicáveis permitem incorporá-la.
 - O formato de uma eventual rádio contínua ainda será definido: AutoDJ, programas em horários marcados ou os dois.
 - Antes da transmissão pública, confirmar que os acordos autorizam web rádio/webcasting e verificar licenciamento e envio de repertório com o ECAD.
 - A transmissão poderá usar um serviço de rádio separado; o site exibirá o player e as informações da faixa atual.

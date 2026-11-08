@@ -242,7 +242,7 @@ const updates = [
       <aside class="radio-panel panel" id="radio" aria-labelledby="radio-title">
         <div class="panel-heading radio-heading">
           <h2 id="radio-title">RÁDIO FALLS</h2>
-          <span class="panel-status">EM BREVE</span>
+          <span class="panel-status">PLAYLIST + LOCUÇÃO</span>
         </div>
         <div
           class="radio-cover"
@@ -255,9 +255,29 @@ const updates = [
           <span class="radio-cover-wave radio-cover-wave-two"></span>
           <span class="radio-cover-wordmark">FALLS</span>
           <span class="radio-cover-title">RÁDIO RECORDS</span>
-          <span class="radio-cover-caption">ARTE EM BREVE <b>•</b> SOM EM MOVIMENTO</span>
+          <span class="radio-cover-caption">ARTISTAS <b>•</b> LANÇAMENTOS <b>•</b> SOM EM MOVIMENTO</span>
         </div>
-        <p class="radio-selection">ARTISTAS <span>•</span> LANÇAMENTOS <span>•</span> RÁDIO</p>
+        <div class="radio-announcer" data-radio-announcer>
+          <p class="radio-selection">APRESENTAÇÃO FALLS</p>
+          <p class="radio-announcer-status" data-announcer-status aria-live="polite">
+            Ouça as boas-vindas e depois aperte play na playlist.
+          </p>
+          <button class="radio-announcer-button" type="button" data-announcer-toggle>
+            <span aria-hidden="true">▶</span> OUVIR BOAS-VINDAS
+          </button>
+        </div>
+        <p class="radio-playlist-label">PLAYLIST OFICIAL <span>•</span> SPOTIFY</p>
+        <div class="radio-player">
+          <iframe
+            title="Playlist Falls Records — Rádio no Spotify"
+            src="https://open.spotify.com/embed/playlist/0VwEgmhmIaVJuqMfkfOReq?utm_source=generator&theme=0"
+            width="100%"
+            height="152"
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </div>
       </aside>
 
       <section class="releases-panel panel" id="lancamentos" aria-labelledby="releases-title">

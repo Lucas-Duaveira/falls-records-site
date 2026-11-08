@@ -610,7 +610,7 @@ a {
 
 .radio-panel {
   display: flex;
-  min-height: 250px;
+  min-height: 0;
   flex-direction: column;
   grid-column: 3;
   padding: 0 16px 16px;
@@ -648,8 +648,7 @@ a {
   position: relative;
   display: flex;
   width: 100%;
-  min-height: 170px;
-  flex: 1;
+  min-height: 140px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
@@ -745,12 +744,75 @@ a {
 }
 
 .radio-selection {
-  margin: 0.8rem 0 0;
-  color: var(--muted);
+  margin: 0;
+  color: var(--blue-light);
   font-family: var(--font-label);
-  font-size: 0.52rem;
+  font-size: 0.55rem;
   text-align: center;
   letter-spacing: 0.1em;
+}
+
+.radio-announcer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  background: rgb(2 9 18 / 62%);
+}
+
+.radio-announcer-status {
+  min-height: 1.5em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.58rem;
+  text-align: center;
+}
+
+.radio-announcer-button {
+  min-height: 34px;
+  padding: 0 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--blue-light);
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.radio-announcer-button:hover {
+  border-color: var(--blue-light);
+  color: var(--white);
+}
+
+.radio-playlist-label {
+  margin: 0.9rem 0 0.45rem;
+  color: var(--muted);
+  font-family: var(--font-label);
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.radio-playlist-label span {
+  color: var(--blue-light);
+}
+
+.radio-player {
+  width: 100%;
+  overflow: hidden;
+}
+
+.radio-player iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border: 0;
+  border-radius: 12px;
 }
 
 .releases-panel,
