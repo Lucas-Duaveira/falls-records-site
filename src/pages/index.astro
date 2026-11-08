@@ -298,7 +298,7 @@ const updates = [
                 role="img"
                 aria-label={`Arte de ${release.title} em preparação`}
               >
-                <img class="release-art-image" alt="" loading="lazy" decoding="async" hidden />
+                <img class="release-art-image" alt="" loading="lazy" decoding="async" />
                 <span>FR</span>
               </div>
               <div class="release-info">
@@ -467,7 +467,7 @@ const updates = [
           image.addEventListener(
             "load",
             () => {
-              image.hidden = false;
+            image.classList.add("is-loaded");
               fallback?.setAttribute("hidden", "");
               artwork?.classList.add("has-image");
               artwork?.setAttribute(
