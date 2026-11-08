@@ -645,8 +645,9 @@ a {
 }
 
 .radio-cover {
+  align-self: center;
   overflow: hidden;
-  width: 100%;
+  width: min(100%, 360px);
   aspect-ratio: 120 / 121;
   margin: 14px 0 0;
   border: 1px solid rgb(125 183 234 / 32%);
