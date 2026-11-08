@@ -734,10 +734,31 @@ a {
   color: var(--white);
 }
 
+.radio-track-list a,
+.radio-fallback-link {
+  color: var(--blue-light);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.radio-track-list a:hover,
+.radio-track-list a:focus-visible,
+.radio-fallback-link:hover,
+.radio-fallback-link:focus-visible {
+  color: var(--white);
+}
+
 .radio-player {
   width: 100%;
   overflow: hidden;
   border: 0;
+  text-align: center;
+}
+
+.radio-fallback-link {
+  display: inline-block;
+  margin: 0.9rem 0;
+  font-size: 0.65rem;
 }
 
 .radio-player iframe {

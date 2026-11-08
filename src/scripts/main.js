@@ -76,6 +76,21 @@ if (
     radioToggle.setAttribute("aria-pressed", String(isActive));
   };
 
+  const showYouTubeFallback = (track, message) => {
+    active = false;
+    player = undefined;
+    setButtonState(false);
+    setStatus(message);
+
+    const link = document.createElement("a");
+    link.className = "radio-fallback-link";
+    link.href = `https://www.youtube.com/watch?v=${encodeURIComponent(track.videoId)}`;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = `ABRIR ${track.title} NO YOUTUBE ↗`;
+    radioPlayerContainer.replaceChildren(link);
+  };
+
   const announceTrack = async (track) => {
     if (!apiEndpoint) {
       return "Apresentador de IA aguardando configuração.";
@@ -222,8 +237,9 @@ if (
                   onStateChange: onPlayerStateChange,
                   onError: (event) => {
                     if (active) {
-                      setStatus(
-                        `O YouTube não conseguiu reproduzir esta faixa (erro ${event.data}). Confira se o vídeo permite reprodução incorporada.`,
+                      showYouTubeFallback(
+                        tracks[currentTrackIndex],
+                        `O vídeo não pôde tocar aqui (erro ${event.data}). Abra a faixa diretamente no YouTube:`,
                       );
                     }
                     resolve();
@@ -237,9 +253,8 @@ if (
       )
       .catch((error) => {
         if (active) {
-          const message =
-            error instanceof Error ? error.message : "Não foi possível carregar o player do YouTube.";
-          setStatus(`${message} A faixa ainda pode ser iniciada pelo player do vídeo.`);
+          const message = error instanceof Error ? error.message : "Não foi possível carregar o player do YouTube.";
+          showYouTubeFallback(tracks[currentTrackIndex], `${message} Abra a faixa diretamente no YouTube:`);
         }
       });
   });

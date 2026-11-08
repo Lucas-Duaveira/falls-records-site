@@ -284,7 +284,16 @@ const radioTracks = [
         </p>
         <div class="radio-track-list" aria-label="Faixas desta prévia">
           {radioTracks.map((track) => (
-            <p><span>{track.artist}</span> / {track.title}</p>
+            <p>
+              <span>{track.artist}</span> /
+              <a
+                href={`https://www.youtube.com/watch?v=${track.videoId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {track.title}
+              </a>
+            </p>
           ))}
         </div>
         <div class="radio-player" data-radio-player></div>
