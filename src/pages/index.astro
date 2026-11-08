@@ -45,6 +45,7 @@ const releases = [
     year: "2021",
     kind: "Single",
     spotify: "https://open.spotify.com/album/1ojj8YPFeB2TJjhGVZt6LP",
+    artwork: "https://i.scdn.co/image/ab67616d0000e1a3cc5d2f0b6bf56b6ce7b12422",
   },
   {
     title: "Say Goodbye Again",
@@ -111,20 +112,33 @@ const artists = [
   {
     name: "Rise Rise, Forks",
     bio: "Banda independente da Falls Records. Este espaço reúne seus canais oficiais e músicas; a apresentação será atualizada com a descrição aprovada pela banda.",
+    image:
+      "https://ugc.production.linktr.ee/71e388e2-7a39-4a20-81a7-ab40b3a740ed_2ab5fa77-1012-48d4-b7df-972c8ce41e2c.jpeg?io=true&size=avatar-v3_0",
     displayOrder: 1,
     links: [
       { label: "Linktree oficial", href: "https://linktr.ee/RiseForksBand" },
+      {
+        label: "Spotify",
+        href: "https://open.spotify.com/artist/4yPESFMGeWS3RxSFiHshoX",
+      },
+      {
+        label: "Apple Music",
+        href: "https://music.apple.com/br/artist/rise-rise-forks/1680386616",
+      },
       { label: "Instagram", href: "https://www.instagram.com/riseforksband/" },
       { label: "TikTok", href: "https://www.tiktok.com/@rise.rise.forks" },
+      { label: "YouTube — You should care less", href: "https://youtu.be/_dBPnNc7LNU" },
       { label: "Bandcamp", href: "https://riseriseforks.bandcamp.com/track/just-a-vapor" },
     ],
   },
   {
     name: "Rebecca Silveiras",
     bio: "Rebecca Silveiras é cantora e compositora da Falls Records. Conheça seus lançamentos e acompanhe seus canais oficiais.",
+    image: "https://i.scdn.co/image/ab6761610000939bf4bd8545f474d27f5438a469",
     displayOrder: 2,
     links: [
       { label: "Spotify", href: "https://open.spotify.com/artist/2L7ARWW5u2UJArBYJNAt3Z" },
+      { label: "Apple Music", href: "https://music.apple.com/br/artist/rebecca-silveiras/1537283501" },
       { label: "Instagram", href: "https://www.instagram.com/wowbk/" },
       { label: "Facebook", href: "https://www.facebook.com/wowbecca" },
       { label: "YouTube — Hurt Only", href: "https://www.youtube.com/watch?v=HFKa7-pvGgg" },
@@ -133,9 +147,11 @@ const artists = [
   {
     name: "Duaveira",
     bio: "Duaveira é um projeto musical independente ligado à Falls Records. Este espaço reúne seus lançamentos e canais oficiais; a apresentação será atualizada com a visão do artista.",
+    image: "https://i.scdn.co/image/ab6761610000939b647ca065ae422eabaa763f75",
     displayOrder: 3,
     links: [
       { label: "Spotify", href: "https://open.spotify.com/artist/2N7H6GiXTxRKq7uTXrzQvO" },
+      { label: "Apple Music", href: "https://music.apple.com/br/artist/duaveira/1537283448" },
       { label: "Instagram", href: "https://www.instagram.com/duavessu/" },
       { label: "YouTube — Soft Sparks", href: "https://www.youtube.com/watch?v=fCwj8bCMbmg" },
     ],
@@ -169,10 +185,10 @@ const updates = [
       <a class="brand" href="#inicio" aria-label="Falls Records, início">
         <img
           class="brand-logo"
-          src={`${import.meta.env.BASE_URL}/assets/logos/falls-records-logo.png`}
+          src={`${import.meta.env.BASE_URL}/assets/logos/falls-records-logo.webp`}
           alt=""
-          width="1800"
-          height="897"
+          width="720"
+          height="359"
         />
         <span class="brand-tagline">MÚSICA INDEPENDENTE <span>/</span> FALLS RECORDS</span>
       </a>
@@ -199,10 +215,11 @@ const updates = [
     <section class="artist-carousel" aria-label="Artistas da Falls Records ao vivo">
       <figure class="artist-carousel-slide">
         <img
-          src={`${import.meta.env.BASE_URL}/assets/images/carousel/rise-rise-forks-live.jpg`}
+          src={`${import.meta.env.BASE_URL}/assets/images/carousel/rise-rise-forks-live.webp`}
           alt="Rise Rise, Forks se apresentando ao vivo"
-          width="2048"
-          height="1365"
+          width="1600"
+          height="1066"
+          decoding="async"
           fetchpriority="high"
         />
         <figcaption>RISE RISE, FORKS <span>•</span> AO VIVO</figcaption>
@@ -297,6 +314,7 @@ const updates = [
               class="release-row"
               data-release-title={release.title}
               data-release-artist={release.artist ?? "Duaveira"}
+              data-release-artwork={release.artwork}
               data-release-artist-id={
                 appleMusicArtistIds[release.artist ?? "Duaveira"] ??
                 appleMusicArtistIds.Duaveira
@@ -337,12 +355,23 @@ const updates = [
       <section class="artists-panel panel" id="artistas" aria-labelledby="artists-title">
         <div class="panel-heading">
           <h2 id="artists-title">ARTISTAS</h2>
-          <span class="panel-status">BIOGRAFIA RASCUNHO</span>
+          <span class="panel-status">PERFIS E MÍDIAS OFICIAIS</span>
         </div>
         <div class="artist-profiles">
           {artistsByDisplayOrder.map((artist) => (
             <article class="artist-profile">
-              <div class="artist-profile-art" role="img" aria-label={`Imagem de ${artist.name} a adicionar`}>
+              <div
+                class="artist-profile-art"
+                role="img"
+                aria-label={`Imagem oficial de ${artist.name}`}
+              >
+                <img
+                  class="artist-profile-image"
+                  src={artist.image}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
                 <span>{artist.name}</span>
               </div>
               <div class="artist-profile-copy">
@@ -437,7 +466,52 @@ const updates = [
       rowsByArtist.set(artistId, artistRows);
     }
 
+    const showReleaseArtwork = (row, artworkUrl) => {
+      const image = row.querySelector(".release-art-image");
+      const artwork = row.querySelector(".release-art");
+      const fallback = artwork?.querySelector("span");
+
+      if (!(image instanceof HTMLImageElement)) return;
+
+      image.addEventListener(
+        "load",
+        () => {
+          image.classList.add("is-loaded");
+          fallback?.setAttribute("hidden", "");
+          artwork?.classList.add("has-image");
+          artwork?.setAttribute(
+            "aria-label",
+            `Capa de ${row.dataset.releaseTitle} por ${row.dataset.releaseArtist}`,
+          );
+        },
+        { once: true },
+      );
+      image.addEventListener(
+        "error",
+        () => {
+          artwork?.setAttribute(
+            "aria-label",
+            `Capa de ${row.dataset.releaseTitle} indisponível; monograma Falls exibido`,
+          );
+          console.warn(`Não foi possível carregar a capa: ${row.dataset.releaseTitle}`);
+        },
+        { once: true },
+      );
+      image.src = artworkUrl.replace(/\/\d+x\d+bb\.(jpg|png)$/i, "/180x180bb.$1");
+    };
+
     const loadArtistArtwork = async (artistId, artistRows) => {
+      const catalogRows = artistRows.filter((row) => {
+        const artworkUrl = row.dataset.releaseArtwork;
+        if (artworkUrl) {
+          showReleaseArtwork(row, artworkUrl);
+          return false;
+        }
+        return true;
+      });
+
+      if (catalogRows.length === 0) return;
+
       const lookupUrl = new URL("https://itunes.apple.com/lookup");
       lookupUrl.searchParams.set("id", artistId);
       lookupUrl.searchParams.set("entity", "song");
@@ -453,7 +527,7 @@ const updates = [
           throw new Error("A resposta do catálogo Apple Music é inválida.");
         }
 
-        for (const row of artistRows) {
+        for (const row of catalogRows) {
           const releaseTitle = row.dataset.releaseTitle ?? "";
           const titleVariants = [
             normalizeCatalogName(releaseTitle),
@@ -466,11 +540,10 @@ const updates = [
             );
             return titleVariants.some((title) => catalogTitle.includes(title));
           });
-          const image = row.querySelector(".release-art-image");
           const artwork = row.querySelector(".release-art");
-          const artist = row.dataset.releaseArtist;
+          const artworkUrl = match?.artworkUrl100;
 
-          if (!match?.artworkUrl100 || !(image instanceof HTMLImageElement)) {
+          if (!artworkUrl) {
             artwork?.setAttribute(
               "aria-label",
               `Capa oficial de ${releaseTitle} não encontrada no Apple Music; monograma Falls exibido`,
@@ -479,38 +552,10 @@ const updates = [
             continue;
           }
 
-          const fallback = artwork?.querySelector("span");
-          image.addEventListener(
-            "load",
-            () => {
-              image.classList.add("is-loaded");
-              fallback?.setAttribute("hidden", "");
-              artwork?.classList.add("has-image");
-              artwork?.setAttribute(
-                "aria-label",
-                `Capa de ${releaseTitle} por ${artist}`,
-              );
-            },
-            { once: true },
-          );
-          image.addEventListener(
-            "error",
-            () => {
-              artwork?.setAttribute(
-                "aria-label",
-                `Capa de ${releaseTitle} indisponível; monograma Falls exibido`,
-              );
-              console.warn(`Não foi possível carregar a capa: ${releaseTitle}`);
-            },
-            { once: true },
-          );
-          image.src = match.artworkUrl100.replace(
-            /\/\d+x\d+bb\.(jpg|png)$/i,
-            "/600x600bb.$1",
-          );
+          showReleaseArtwork(row, artworkUrl);
         }
       } catch (error) {
-        for (const row of artistRows) {
+        for (const row of catalogRows) {
           row.querySelector(".release-art")?.setAttribute(
             "aria-label",
             `Busca da capa de ${row.dataset.releaseTitle} indisponível; monograma Falls exibido`,
@@ -526,4 +571,28 @@ const updates = [
       ),
     );
   }
+
+  document.querySelectorAll(".artist-profile-image").forEach((image) => {
+    if (!(image instanceof HTMLImageElement)) return;
+
+    const artwork = image.closest(".artist-profile-art");
+    const fallback = artwork?.querySelector("span");
+    const markAsLoaded = () => {
+      image.classList.add("is-loaded");
+      fallback?.setAttribute("hidden", "");
+    };
+
+    image.addEventListener("load", markAsLoaded, { once: true });
+    image.addEventListener(
+      "error",
+      () => {
+        console.warn(`Não foi possível carregar a imagem de ${fallback?.textContent}.`);
+      },
+      { once: true },
+    );
+
+    if (image.complete && image.naturalWidth > 0) {
+      markAsLoaded();
+    }
+  });
 </script>
