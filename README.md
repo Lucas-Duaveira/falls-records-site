@@ -48,7 +48,7 @@ A saída estática será gerada em `dist/`.
 
 ## Rádio Falls
 
-A seção Rádio incorpora a playlist pública “Falls Records — Rádio” pelo player oficial compacto do Spotify. O botão **Ouvir boas-vindas** narra uma apresentação curta usando a voz em português disponível no navegador; ele não inicia nem controla a música. A pessoa inicia a playlist separadamente pelo botão de play do Spotify.
+A seção Rádio usa a capa da Falls Records enviada para o site e incorpora a playlist pública “Falls Records — Rádio” pelo player oficial compacto do Spotify. O botão **Ouvir boas-vindas** narra uma apresentação curta usando a voz em português disponível no navegador; ele não inicia nem controla a música. A pessoa inicia a playlist separadamente pelo botão de play do Spotify.
 
 Esta prévia usa um texto de boas-vindas fixo e síntese de voz do navegador, não geração de falas por IA. Um apresentador que gere textos dinâmicos com IA poderá ser adicionado depois por meio de um serviço protegido no servidor, sem expor chaves no site estático.
 
