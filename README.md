@@ -51,7 +51,7 @@ A seção Rádio incorpora a playlist pública “Falls Records — Rádio” pe
 
 Esta prévia usa um texto de boas-vindas fixo e síntese de voz do navegador, não geração de falas por IA. Um apresentador que gere textos dinâmicos com IA poderá ser adicionado depois por meio de um serviço protegido no servidor, sem expor chaves no site estático.
 
-As capas dos lançamentos são buscadas automaticamente no catálogo público do Apple Music, usando artista e título. Se não houver correspondência ou a imagem não carregar, o site mantém o monograma Falls como alternativa. A busca não altera nem controla o player do Spotify.
+As capas dos lançamentos são buscadas automaticamente no catálogo público do Apple Music, consultando as faixas associadas ao artista e comparando o título da música. Se um lançamento não estiver nesse catálogo ou a imagem não carregar, o site mantém o monograma Falls como alternativa. A busca não altera nem controla o player do Spotify.
 
 ## Prévia de teste no GitHub Pages
 

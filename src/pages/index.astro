@@ -1,6 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+const appleMusicArtistIds: Record<string, number> = {
+  Duaveira: 1537283448,
+  "Rebecca Silveiras": 1537283501,
+  "Rise Rise, Forks": 1680386616,
+};
+
 const releases = [
   {
     title: "Soft Sparks",
@@ -291,6 +297,10 @@ const updates = [
               class="release-row"
               data-release-title={release.title}
               data-release-artist={release.artist ?? "Duaveira"}
+              data-release-artist-id={
+                appleMusicArtistIds[release.artist ?? "Duaveira"] ??
+                appleMusicArtistIds.Duaveira
+              }
               data-popularity-rank={release.popularityRank}
             >
               <div
@@ -419,21 +429,21 @@ const updates = [
     const rowsByArtist = new Map();
     for (const row of rows) {
       const artist = row.dataset.releaseArtist;
-      if (!artist) continue;
+      const artistId = row.dataset.releaseArtistId;
+      if (!artist || !artistId) continue;
 
-      const artistRows = rowsByArtist.get(artist) ?? [];
+      const artistRows = rowsByArtist.get(artistId) ?? [];
       artistRows.push(row);
-      rowsByArtist.set(artist, artistRows);
+      rowsByArtist.set(artistId, artistRows);
     }
 
-    const loadArtistArtwork = async (artist, artistRows) => {
-      const searchUrl = new URL("https://itunes.apple.com/search");
-      searchUrl.searchParams.set("term", artist);
-      searchUrl.searchParams.set("entity", "album");
-      searchUrl.searchParams.set("limit", "200");
+    const loadArtistArtwork = async (artistId, artistRows) => {
+      const lookupUrl = new URL("https://itunes.apple.com/lookup");
+      lookupUrl.searchParams.set("id", artistId);
+      lookupUrl.searchParams.set("entity", "song");
 
       try {
-        const response = await fetch(searchUrl);
+        const response = await fetch(lookupUrl);
         if (!response.ok) {
           throw new Error(`Apple Music respondeu com status ${response.status}.`);
         }
@@ -444,22 +454,28 @@ const updates = [
         }
 
         for (const row of artistRows) {
-          const title = normalizeCatalogName(row.dataset.releaseTitle ?? "");
-          const match = catalog.results.find(
-            (release) =>
-              normalizeCatalogName(release.artistName ?? "") ===
-                normalizeCatalogName(artist) &&
-              normalizeCatalogName(release.collectionName ?? "").includes(title),
-          );
+          const releaseTitle = row.dataset.releaseTitle ?? "";
+          const titleVariants = [
+            normalizeCatalogName(releaseTitle),
+            normalizeCatalogName(releaseTitle.replace(/\s*[\[(].*?[\])]/g, "")),
+          ].filter(Boolean);
+          const match = catalog.results.find((release) => {
+            if (release.kind !== "song") return false;
+            const catalogTitle = normalizeCatalogName(
+              release.trackName ?? release.trackCensoredName ?? "",
+            );
+            return titleVariants.some((title) => catalogTitle.includes(title));
+          });
           const image = row.querySelector(".release-art-image");
           const artwork = row.querySelector(".release-art");
+          const artist = row.dataset.releaseArtist;
 
           if (!match?.artworkUrl100 || !(image instanceof HTMLImageElement)) {
             artwork?.setAttribute(
               "aria-label",
-              `Capa oficial de ${row.dataset.releaseTitle} não encontrada; monograma Falls exibido`,
+              `Capa oficial de ${releaseTitle} não encontrada no Apple Music; monograma Falls exibido`,
             );
-            console.warn(`Capa não encontrada no Apple Music: ${row.dataset.releaseTitle}`);
+            console.warn(`Capa não encontrada no Apple Music: ${releaseTitle}`);
             continue;
           }
 
@@ -467,12 +483,12 @@ const updates = [
           image.addEventListener(
             "load",
             () => {
-            image.classList.add("is-loaded");
+              image.classList.add("is-loaded");
               fallback?.setAttribute("hidden", "");
               artwork?.classList.add("has-image");
               artwork?.setAttribute(
                 "aria-label",
-                `Capa de ${row.dataset.releaseTitle} por ${artist}`,
+                `Capa de ${releaseTitle} por ${artist}`,
               );
             },
             { once: true },
@@ -482,9 +498,9 @@ const updates = [
             () => {
               artwork?.setAttribute(
                 "aria-label",
-                `Capa de ${row.dataset.releaseTitle} indisponível; monograma Falls exibido`,
+                `Capa de ${releaseTitle} indisponível; monograma Falls exibido`,
               );
-              console.warn(`Não foi possível carregar a capa: ${row.dataset.releaseTitle}`);
+              console.warn(`Não foi possível carregar a capa: ${releaseTitle}`);
             },
             { once: true },
           );
@@ -500,13 +516,13 @@ const updates = [
             `Busca da capa de ${row.dataset.releaseTitle} indisponível; monograma Falls exibido`,
           );
         }
-        console.error(`Não foi possível buscar capas para ${artist}.`, error);
+        console.error(`Não foi possível buscar capas para o artista ${artistId}.`, error);
       }
     };
 
     void Promise.all(
-      [...rowsByArtist].map(([artist, artistRows]) =>
-        loadArtistArtwork(artist, artistRows),
+      [...rowsByArtist].map(([artistId, artistRows]) =>
+        loadArtistArtwork(artistId, artistRows),
       ),
     );
   }
